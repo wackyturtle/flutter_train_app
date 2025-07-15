@@ -1,10 +1,9 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_train_app/seat/widget/Seat_Box.dart';
 
 class SeatPage extends StatelessWidget {
-  static const int _rowCount = 20;
-
-  String startStation = '출발역';
-  String endStation = '도착역';
+  final String startStation = '출발역';
+  final String endStation = '도착역';
 
   @override
   Widget build(BuildContext context) {
@@ -12,7 +11,12 @@ class SeatPage extends StatelessWidget {
       appBar: AppBar(
         title: Text('좌석 선택'),
         centerTitle: true,
-        leading: Icon(Icons.arrow_back_ios_new_outlined),
+        leading: IconButton(
+          onPressed: () {
+            Navigator.pop(context);
+          },
+          icon: Icon(Icons.arrow_back_ios_new_outlined),
+        ),
       ),
       body: Column(
         children: [
@@ -39,7 +43,6 @@ class SeatPage extends StatelessWidget {
                 const SizedBox(width: 4),
                 const Text('선택됨'),
                 const SizedBox(width: 20),
-                // 선택안됨
                 seatPageSeatState(Colors.grey[300]!),
                 const SizedBox(width: 4),
                 const Text('선택안됨'),
@@ -99,37 +102,6 @@ class SeatPage extends StatelessWidget {
   }
 }
 
-class SeatPageRow extends StatelessWidget {
-  final int rowNum;
-  const SeatPageRow(this.rowNum);
-
-  @override
-  Widget build(BuildContext context) {
-    return SizedBox(
-      height: 58,
-      child: Row(
-        mainAxisAlignment: MainAxisAlignment.center,
-        children: [
-          SeatBox(),
-          const SizedBox(width: 4),
-          SeatBox(),
-          const SizedBox(width: 4),
-          Container(
-            width: 50,
-            height: 50,
-            alignment: Alignment.center,
-            child: Text('$rowNum', style: const TextStyle(fontSize: 18)),
-          ),
-          const SizedBox(width: 4),
-          SeatBox(),
-          const SizedBox(width: 4),
-          SeatBox(),
-        ],
-      ),
-    );
-  }
-}
-
 Container seatPageSeatState(final Color color) {
   return Container(
     width: 24,
@@ -169,22 +141,6 @@ class SeatLabel extends StatelessWidget {
       height: 50,
       alignment: Alignment.center,
       child: Text(label, style: const TextStyle(fontSize: 18)),
-    );
-  }
-}
-
-class SeatBox extends StatelessWidget {
-  const SeatBox();
-
-  @override
-  Widget build(BuildContext context) {
-    return Container(
-      width: 50,
-      height: 50,
-      decoration: BoxDecoration(
-        color: Colors.grey[300],
-        borderRadius: BorderRadius.circular(8),
-      ),
     );
   }
 }

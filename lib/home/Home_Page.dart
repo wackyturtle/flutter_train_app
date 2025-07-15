@@ -1,6 +1,11 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_train_app/home/widget/Select_Station.dart';
+import 'package:flutter_train_app/seat/Seat_Page.dart';
 
 class HomePage extends StatelessWidget {
+  final String StartStation = '선택';
+  final String EndStation = '선택';
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -20,35 +25,9 @@ class HomePage extends StatelessWidget {
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                 children: [
-                  Column(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: [
-                      Text(
-                        '출발역',
-                        style: TextStyle(
-                          fontSize: 16,
-                          color: Colors.grey,
-                          fontWeight: FontWeight.bold,
-                        ),
-                      ),
-                      Text('선택', style: TextStyle(fontSize: 40)),
-                    ],
-                  ),
+                  SelectStation('선택'),
                   Container(color: Colors.grey[400], height: 50, width: 2),
-                  Column(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: [
-                      Text(
-                        '도착역',
-                        style: TextStyle(
-                          fontSize: 16,
-                          color: Colors.grey,
-                          fontWeight: FontWeight.bold,
-                        ),
-                      ),
-                      Text('선택', style: TextStyle(fontSize: 40)),
-                    ],
-                  ),
+                  SelectStation('선택'),
                 ],
               ),
             ),
@@ -57,7 +36,18 @@ class HomePage extends StatelessWidget {
               height: 50,
               width: double.infinity,
               child: ElevatedButton(
-                onPressed: () {},
+                onPressed: () {
+                  if (StartStation != '선택' && EndStation != '선택') {
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                        builder: (context) {
+                          return SeatPage();
+                        },
+                      ),
+                    );
+                  }
+                },
                 style: ElevatedButton.styleFrom(
                   shape: RoundedRectangleBorder(
                     borderRadius: BorderRadius.circular(20),
