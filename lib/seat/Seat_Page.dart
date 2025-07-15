@@ -1,10 +1,20 @@
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_train_app/seat/widget/Seat_Box.dart';
 
-class SeatPage extends StatelessWidget {
-  final String startStation = '출발역';
-  final String endStation = '도착역';
+class SeatPage extends StatefulWidget {
+  final String startStation;
+  final String endStation;
 
+  SeatPage(this.startStation, this.endStation);
+
+  @override
+  State<SeatPage> createState() => _SeatPageState();
+}
+
+class _SeatPageState extends State<SeatPage> {
+  int? selectedRow;
+  int? selectedCol;
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -25,11 +35,11 @@ class SeatPage extends StatelessWidget {
             child: Row(
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
-                SeatPageStation(startStation),
+                SeatPageStation(widget.startStation),
                 SizedBox(width: 50),
                 Icon(Icons.arrow_circle_right_outlined, size: 30),
                 SizedBox(width: 50),
-                SeatPageStation(endStation),
+                SeatPageStation(widget.endStation),
               ],
             ),
           ),
@@ -65,7 +75,18 @@ class SeatPage extends StatelessWidget {
                       SeatLabel('D'),
                     ],
                   ),
-                  for (int i = 1; i <= 20; i++) SeatPageRow(i),
+                  for (int i = 1; i <= 20; i++)
+                    SeatPageRow(
+                      rowNum: i,
+                      selectedRow: selectedRow,
+                      selectedCol: selectedCol,
+                      onSelected: (row, col) {
+                        setState(() {
+                          selectedRow = row;
+                          selectedCol = col;
+                        });
+                      },
+                    ),
                 ],
               ),
             ),
@@ -76,7 +97,39 @@ class SeatPage extends StatelessWidget {
             child: SizedBox(
               width: double.infinity,
               child: ElevatedButton(
-                onPressed: () {},
+                onPressed: () {
+                  if (selectedRow == null || selectedCol == null) {
+                    return;
+                  }
+
+                  showCupertinoDialog(
+                    context: context,
+                    builder: (context) {
+                      return CupertinoAlertDialog(
+                        title: Text('예매 하시겠습니까?'),
+                        content: Text(
+                          '좌석 : $selectedRow-${String.fromCharCode(65 + (selectedCol ?? 1))}',
+                        ),
+                        actions: [
+                          CupertinoDialogAction(
+                            child: Text('취소'),
+                            onPressed: () {
+                              Navigator.pop(context);
+                            },
+                          ),
+                          CupertinoDialogAction(
+                            child: Text('확인'),
+                            isDestructiveAction: true,
+                            onPressed: () {
+                              Navigator.pop(context);
+                              Navigator.pop(context);
+                            },
+                          ),
+                        ],
+                      );
+                    },
+                  );
+                },
                 style: ElevatedButton.styleFrom(
                   backgroundColor: Colors.purple,
                   padding: const EdgeInsets.symmetric(vertical: 16),

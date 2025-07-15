@@ -1,7 +1,8 @@
 import 'package:flutter/material.dart';
 
 class StationListPage extends StatelessWidget {
-  final List<String> stations = [
+  String title;
+  static const List<String> stations = [
     '동탄',
     '평택지제',
     '천안아산',
@@ -14,30 +15,42 @@ class StationListPage extends StatelessWidget {
     '부산',
   ];
 
+  StationListPage(this.title);
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('출발역'),
+        title: Text(title),
         centerTitle: true,
-        leading: Icon(Icons.arrow_back_ios_new_outlined),
+        leading: IconButton(
+          onPressed: () {
+            Navigator.pop(context);
+          },
+          icon: Icon(Icons.arrow_back_ios_new_outlined),
+        ),
       ),
-      body: ListView(children: [for (var i in stations) station(i)]),
+      body: ListView(children: [for (var i in stations) station(i, context)]),
     );
   }
-}
 
-Widget station(String stationName) {
-  return Container(
-    height: 50,
-    padding: const EdgeInsets.symmetric(horizontal: 16),
-    alignment: Alignment.centerLeft,
-    decoration: BoxDecoration(
-      border: Border(bottom: BorderSide(color: Colors.grey[300]!)),
-    ),
-    child: Text(
-      stationName,
-      style: const TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
-    ),
-  );
+  Widget station(String stationName, BuildContext context) {
+    return GestureDetector(
+      onTap: () {
+        Navigator.pop(context, stationName);
+      },
+      child: Container(
+        height: 50,
+        padding: const EdgeInsets.symmetric(horizontal: 16),
+        alignment: Alignment.centerLeft,
+        decoration: BoxDecoration(
+          border: Border(bottom: BorderSide(color: Colors.grey[300]!)),
+        ),
+        child: Text(
+          stationName,
+          style: const TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
+        ),
+      ),
+    );
+  }
 }

@@ -1,9 +1,10 @@
 import 'package:flutter/material.dart';
 
 class SelectStation extends StatelessWidget {
-  final String select;
+  String title;
+  String station;
 
-  const SelectStation(this.select);
+  SelectStation(this.title, this.station);
 
   @override
   Widget build(BuildContext context) {
@@ -11,14 +12,14 @@ class SelectStation extends StatelessWidget {
       mainAxisAlignment: MainAxisAlignment.center,
       children: [
         Text(
-          '출발역',
+          title,
           style: TextStyle(
             fontSize: 16,
             color: Colors.grey,
             fontWeight: FontWeight.bold,
           ),
         ),
-        Text(select, style: TextStyle(fontSize: 40)),
+        Text(station, style: TextStyle(fontSize: 40)),
       ],
     );
   }

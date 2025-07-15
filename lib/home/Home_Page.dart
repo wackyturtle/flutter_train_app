@@ -1,10 +1,16 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_train_app/home/widget/Select_Station.dart';
 import 'package:flutter_train_app/seat/Seat_Page.dart';
+import 'package:flutter_train_app/station/Station_List_page.dart';
 
-class HomePage extends StatelessWidget {
-  final String StartStation = '선택';
-  final String EndStation = '선택';
+class HomePage extends StatefulWidget {
+  @override
+  State<HomePage> createState() => _HomePageState();
+}
+
+class _HomePageState extends State<HomePage> {
+  String StartStation = '선택';
+  String EndStation = '선택';
 
   @override
   Widget build(BuildContext context) {
@@ -25,9 +31,39 @@ class HomePage extends StatelessWidget {
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                 children: [
-                  SelectStation('선택'),
+                  GestureDetector(
+                    onTap: () async {
+                      final result = await Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                          builder: (context) {
+                            return StationListPage('출발역');
+                          },
+                        ),
+                      );
+                      setState(() {
+                        StartStation = result;
+                      });
+                    },
+                    child: SelectStation('출발역', StartStation),
+                  ),
                   Container(color: Colors.grey[400], height: 50, width: 2),
-                  SelectStation('선택'),
+                  GestureDetector(
+                    onTap: () async {
+                      final result = await Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                          builder: (context) {
+                            return StationListPage('도착역');
+                          },
+                        ),
+                      );
+                      setState(() {
+                        EndStation = result;
+                      });
+                    },
+                    child: SelectStation('도착역', EndStation),
+                  ),
                 ],
               ),
             ),
@@ -42,7 +78,7 @@ class HomePage extends StatelessWidget {
                       context,
                       MaterialPageRoute(
                         builder: (context) {
-                          return SeatPage();
+                          return SeatPage(StartStation, EndStation);
                         },
                       ),
                     );
