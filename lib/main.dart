@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_train_app/home/Home_Page.dart';
-import 'package:flutter_train_app/home/gpt.dart';
+import 'package:flutter_train_app/seat/widget/Seat_Page.dart';
 import 'package:flutter_train_app/station/Station_List_page.dart';
 
 void main() {
@@ -12,6 +12,6 @@ class MyApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(home: StationListPage());
+    return MaterialApp(home: SeatPage());
   }
 }
