@@ -25,9 +25,9 @@ class MyApp extends StatelessWidget {
         textTheme: TextTheme(bodyMedium: TextStyle(color: Colors.black)),
       ),
       darkTheme: ThemeData(
-        scaffoldBackgroundColor: Color(0xFF121212),
+        scaffoldBackgroundColor: Colors.black,
         appBarTheme: AppBarTheme(
-          backgroundColor: Color(0xFF1E1E1E),
+          backgroundColor: Colors.black,
           foregroundColor: Colors.white,
           centerTitle: true,
         ),
@@ -36,9 +36,9 @@ class MyApp extends StatelessWidget {
         ),
         textTheme: TextTheme(bodyMedium: TextStyle(color: Colors.white)),
         dividerColor: Colors.grey[600],
-        cardColor: Color(0xFF1E1E1E),
+        cardColor: Colors.black,
       ),
-      themeMode: ThemeMode.dark,
+      themeMode: ThemeMode.light,
       home: HomePage(),
     );
   }
