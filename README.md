@@ -33,10 +33,21 @@ Flutter를 이용하여 구현한 기차 예매 앱입니다.
 
 ## 📸 예시 화면
 
-![홈](./screenshots/home.png)  
-![역 선택](./screenshots/station_select.png)  
-![좌석 선택](./screenshots/seat_select.png)  
-![예매 확인](./screenshots/booking_confirm.png)
+![홈](./assets/homepage.png)  
+- 홈 화면
+  
+![출발역 선택](./assets/startstation.png)  
+- 출발역 선택
+  
+![도착역 선택](./assets/endstation.png)  
+- 도착역 선택
+  
+![좌석 선택](./assets/selectseatpage.png)  
+- 좌석 선택
+  
+![예매 확인](./assets/press예매하기.png)  
+- 예매 확인
+  
 
 ---
 
@@ -46,8 +57,4 @@ flutter pub get
 flutter run
 ```
 
----
 
-## ✍️ 제작자
-- SSAFY 준비생, 컴퓨터공학 전공
-- 앱 UI/UX 및 상태 관리 로직, 사용자 경험까지 고려한 기획 및 개발
