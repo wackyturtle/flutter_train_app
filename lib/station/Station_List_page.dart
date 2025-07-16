@@ -1,7 +1,11 @@
 import 'package:flutter/material.dart';
 
 class StationListPage extends StatelessWidget {
-  String title;
+  final String title;
+  final String? excludeStation;
+
+  StationListPage({required this.title, this.excludeStation});
+
   static const List<String> stations = [
     '동탄',
     '평택지제',
@@ -15,10 +19,12 @@ class StationListPage extends StatelessWidget {
     '부산',
   ];
 
-  StationListPage(this.title);
-
   @override
   Widget build(BuildContext context) {
+    final filteredStations = excludeStation == null
+        ? stations
+        : stations.where((s) => s != excludeStation).toList();
+
     return Scaffold(
       appBar: AppBar(
         title: Text(title),
@@ -30,27 +36,49 @@ class StationListPage extends StatelessWidget {
           icon: Icon(Icons.arrow_back_ios_new_outlined),
         ),
       ),
-      body: ListView(children: [for (var i in stations) station(i, context)]),
-    );
-  }
-
-  Widget station(String stationName, BuildContext context) {
-    return GestureDetector(
-      onTap: () {
-        Navigator.pop(context, stationName);
-      },
-      child: Container(
-        height: 50,
-        padding: const EdgeInsets.symmetric(horizontal: 16),
-        alignment: Alignment.centerLeft,
-        decoration: BoxDecoration(
-          border: Border(bottom: BorderSide(color: Colors.grey[300]!)),
-        ),
-        child: Text(
-          stationName,
-          style: const TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
-        ),
+      body: ListView(
+        children: [
+          for (var station in filteredStations)
+            GestureDetector(
+              onTap: () => Navigator.pop(context, station),
+              child: Container(
+                height: 50,
+                padding: const EdgeInsets.symmetric(horizontal: 16),
+                alignment: Alignment.centerLeft,
+                decoration: BoxDecoration(
+                  border: Border(bottom: BorderSide(color: Colors.grey[300]!)),
+                ),
+                child: Text(
+                  station,
+                  style: const TextStyle(
+                    fontSize: 18,
+                    fontWeight: FontWeight.bold,
+                  ),
+                ),
+              ),
+            ),
+        ],
       ),
     );
   }
+}
+
+Widget station(String stationName, BuildContext context) {
+  return GestureDetector(
+    onTap: () {
+      Navigator.pop(context, stationName);
+    },
+    child: Container(
+      height: 50,
+      padding: const EdgeInsets.symmetric(horizontal: 16),
+      alignment: Alignment.centerLeft,
+      decoration: BoxDecoration(
+        border: Border(bottom: BorderSide(color: Colors.grey[300]!)),
+      ),
+      child: Text(
+        stationName,
+        style: const TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
+      ),
+    ),
+  );
 }

@@ -18,14 +18,14 @@ class _HomePageState extends State<HomePage> {
       appBar: AppBar(centerTitle: true, title: Text('기차 예매')),
       body: Container(
         padding: EdgeInsets.all(20),
-        color: Colors.grey[200],
+        color: Theme.of(context).scaffoldBackgroundColor,
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
             Container(
               height: 200,
               decoration: BoxDecoration(
-                color: Colors.white,
+                color: Theme.of(context).scaffoldBackgroundColor,
                 borderRadius: BorderRadius.circular(20),
               ),
               child: Row(
@@ -36,9 +36,12 @@ class _HomePageState extends State<HomePage> {
                       final result = await Navigator.push(
                         context,
                         MaterialPageRoute(
-                          builder: (context) {
-                            return StationListPage('출발역');
-                          },
+                          builder: (context) => StationListPage(
+                            title: '출발역',
+                            excludeStation: EndStation == '선택'
+                                ? null
+                                : EndStation,
+                          ),
                         ),
                       );
                       setState(() {
@@ -53,9 +56,12 @@ class _HomePageState extends State<HomePage> {
                       final result = await Navigator.push(
                         context,
                         MaterialPageRoute(
-                          builder: (context) {
-                            return StationListPage('도착역');
-                          },
+                          builder: (context) => StationListPage(
+                            title: '도착역',
+                            excludeStation: StartStation == '선택'
+                                ? null
+                                : StartStation,
+                          ),
                         ),
                       );
                       setState(() {
